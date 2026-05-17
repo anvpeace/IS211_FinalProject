@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <article class="post-card full-post">
+        <h1>{{ post.title }}</h1>
+        <p class="meta">
+            By {{ post.username }} on {{ post.published_date }}
+            {% if post.category_name %}
+                | Category:
+                <a href="{{ url_for('posts_by_category', category_id=post.category_id, category_name=post.category_name) }}">
+                    {{ post.category_name }}
+                </a>
+            {% endif %}
+        </p>
+        <p>{{ post.content }}</p>
+    </article>
+{% endblock %}

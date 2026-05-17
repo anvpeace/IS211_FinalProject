@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ action }} Post</h1>
+    <form method="post" class="form-card">
+        <label>Title</label>
+        <input type="text" name="title" value="{{ post.title if post else '' }}" required>
+
+        <label>Category</label>
+        <select name="category_id">
+            <option value="">No Category</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if post and post.category_id == category.id %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Content</label>
+        <textarea name="content" rows="10" required>{{ post.content if post else '' }}</textarea>
+
+        <label class="checkbox-label">
+            <input type="checkbox" name="is_published" {% if not post or post.is_published %}checked{% endif %}>
+            Publish this post
+        </label>
+
+        <button type="submit">Save Post</button>
+    </form>
+{% endblock %}
